@@ -28,21 +28,20 @@
     <button onclick="reset()">Reset</button>
     <script>
         function allowDrop(event) {
-            event.preventDefault();
+            event.preventDefault();  // Allow dropping
         }
 
         function drag(event) {
-            event.dataTransfer.setData("text", event.target.id);
-            //event.target.style.opacity = "0.5";
+            event.dataTransfer.setData("text", event.target.id); // Set the dragged item's ID as data
+            
         }
 
         function drop(event) {
             event.preventDefault();
-            var data = event.dataTransfer.getData("text");
-            var draggedItem = document.getElementById(data);
-            event.target.appendChild(draggedItem);
-            // draggedItem.style.opacity = "1";
-            showSuccessMessage("Item dropped successfully!");
+            var data = event.dataTransfer.getData("text");   // Retrieve the dragged item's ID
+            var draggedItem = document.getElementById(data); // Get the dragged item element
+            event.target.appendChild(draggedItem);           // Append the dragged item to the drop target
+            showSuccessMessage("Item dropped successfully!"); // Display a success message
         }
 
         function showSuccessMessage(message) {
@@ -55,7 +54,8 @@
             var container2 = document.getElementById("container2");
 
             while (container2.firstChild) {
-                container1.appendChild(container2.firstChild);
+                container1.appendChild(container2.firstChild); // Move items from container2 back to container1
+            
             }
 
             var successMessage = document.getElementById("successMessage");
