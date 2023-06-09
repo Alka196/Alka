@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drag and Drop</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+    <div class="container" id="container1">
+        <div class="item" id="drag1" draggable="true" ondragstart="drag(event)">Item 1</div>
+        <div class="item" id="drag2" draggable="true" ondragstart="drag(event)">Item 2</div>
+        <div class="item" id="drag3" draggable="true" ondragstart="drag(event)">Item 3</div>
+        <div class="item" id="drag4" draggable="true" ondragstart="drag(event)">Item 4</div>
+    </div>
+
+    <div class="container" id="container2" ondragover="allowDrop(event)" ondrop="drop(event)">
+      
+    </div>
+
+    <div class="success-message" id="successMessage"></div>
+
+    <button onclick="reset()">Reset</button>
+    <script>
+        function allowDrop(event) {
+            event.preventDefault();
+        }
+
+        function drag(event) {
+            event.dataTransfer.setData("text", event.target.id);
+            //event.target.style.opacity = "0.5";
+        }
+
+        function drop(event) {
+            event.preventDefault();
+            var data = event.dataTransfer.getData("text");
+            var draggedItem = document.getElementById(data);
+            event.target.appendChild(draggedItem);
+            // draggedItem.style.opacity = "1";
+            showSuccessMessage("Item dropped successfully!");
+        }
+
+        function showSuccessMessage(message) {
+            var successMessage = document.getElementById("successMessage");
+            successMessage.textContent = message;
+        }
+
+        function reset() {
+            var container1 = document.getElementById("container1");
+            var container2 = document.getElementById("container2");
+
+            while (container2.firstChild) {
+                container1.appendChild(container2.firstChild);
+            }
+
+            var successMessage = document.getElementById("successMessage");
+            successMessage.textContent = "";
+        }
+    </script>
+</body>
+
+</html>
